@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class EtudiantServiceImpl implements EtudiantService{
@@ -41,5 +43,26 @@ public class EtudiantServiceImpl implements EtudiantService{
         repository.saveAndFlush(entity);
 
         return entity.getId();
+    }
+
+    @Override
+    public Boolean delete(Integer id) {
+        try {
+            repository.deleteById(id);
+            return true;
+        } catch (Exception e){
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean exist(Integer id) {
+        return repository.existsById(id);
+    }
+
+    @Override
+    public List<OutEtudiantDto> getAll() {
+
+        return repository.findAll().stream().map(entity -> toDto(entity)).toList();
     }
 }
