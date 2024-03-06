@@ -1,14 +1,14 @@
 package com.example.bdd.controller;
 
+import com.example.bdd.dto.InEtudiantDto;
 import com.example.bdd.dto.OutEtudiantDto;
 import com.example.bdd.entities.EtudiantEntity;
 import com.example.bdd.repositories.EtudiantRepository;
 import com.example.bdd.service.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("Etudiant")
@@ -28,4 +28,12 @@ public class EtudiantController {
         return service.toDto(entity);
 
     }
+
+    @PostMapping("add")
+    public ResponseEntity ajouter (@RequestBody InEtudiantDto dto){
+
+        Integer ID = service.add(dto);
+        return new ResponseEntity("L'etudiant a ete ajouté avec l'id" + ID, HttpStatusCode.valueOf(200));
+    }
+
 }

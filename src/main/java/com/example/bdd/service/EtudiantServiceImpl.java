@@ -1,5 +1,6 @@
 package com.example.bdd.service;
 
+import com.example.bdd.dto.InEtudiantDto;
 import com.example.bdd.dto.OutEtudiantDto;
 import com.example.bdd.entities.EtudiantEntity;
 import com.example.bdd.repositories.EtudiantRepository;
@@ -26,5 +27,19 @@ public class EtudiantServiceImpl implements EtudiantService{
     @Override
     public EtudiantEntity getEntity(Integer id) {
         return repository.findById(id).get();
+    }
+
+    @Override
+    public Integer add(InEtudiantDto dto) {
+
+        // on transforme le dto en entité
+        EtudiantEntity entity = new EtudiantEntity();
+        entity.setNom(dto.getNom());
+        entity.setPrenom(dto.getPrenom());
+        entity.setBirth_date(dto.getDate_naissance());
+        // on l'ajoute au repository
+        repository.saveAndFlush(entity);
+
+        return entity.getId();
     }
 }
