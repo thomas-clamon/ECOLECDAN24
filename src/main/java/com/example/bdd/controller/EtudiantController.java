@@ -48,7 +48,7 @@ public class EtudiantController {
         if (result)
             return new ResponseEntity<>("l'édutiant à ete supprimé", HttpStatusCode.valueOf(200));
         else
-            return new ResponseEntity<>("l'édutiant à ete supprimé", HttpStatusCode.valueOf(200));
+            return new ResponseEntity<>("l'édutiant n'a pas ete supprimé", HttpStatusCode.valueOf(200));
     }
 
     @GetMapping("getall")
